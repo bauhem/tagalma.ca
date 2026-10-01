@@ -1,0 +1,44 @@
+# robots.txt, tagalma.ca
+# Site de prévention sur la fraude. Tout est public, tout peut être indexé.
+
+User-agent: *
+Allow: /
+Disallow: /assets/partage.jpg
+
+# Robots des assistants et des moteurs de réponse.
+# Le contenu de ce site est fait pour être lu, cité et résumé.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Aucun contenu privé, aucun formulaire, aucune zone réservée.
+# Résumé structuré destiné aux modèles de langage : /llm.txt
+
+Sitemap: https://tagalma.ca/sitemap.xml
+Host: tagalma.ca

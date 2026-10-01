@@ -1,0 +1,542 @@
+/* ------------------------------------------------------------------
+   TAG ALMA 2027, index2
+   Page de prévention. Même largeur de contenu que l'en-tête et les
+   4 fiches de index.html (donc mêmes marges). Aucun build.
+   ------------------------------------------------------------------ */
+
+:root {
+  --pink: #eb346a;
+  --pink-bright: #fe4d89;
+  --sp-s: clamp(2.5rem, 6vw, 5rem);
+  --sp-m: clamp(5rem, 14vw, 12rem);
+  --sp-l: clamp(8rem, 22vw, 20rem);
+  --sp-xl: clamp(12rem, 34vw, 34rem);
+  --gap-bait: 300px;
+}
+
+/* ------------------------------------------------------- typographie */
+
+.t-kicker {
+  display: flex;
+  align-items: center;
+  gap: .85em;
+  margin: 0;
+  font-size: clamp(.72rem, 1.15vw, 1.05rem);
+  font-weight: 700;
+  font-stretch: 86%;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.t-kicker::before {
+  content: "";
+  flex: 0 0 auto;
+  width: clamp(26px, 3.4vw, 46px);
+  height: 5px;
+  background: var(--pink);
+}
+
+/* Titre géant. Le corps est calculé pour que la ligne la plus longue
+   (N'EXISTE PAS.) remplisse toute la largeur, puis le bloc est comprimé
+   horizontalement, exactement comme sur l'affiche d'origine.
+   width compense l'échelle, sinon le texte se replierait avant d'être
+   comprimé. */
+.t-slam {
+  --k: .72;
+  margin: 0;
+  width: calc(100% / var(--k));
+  scale: var(--k) 1;
+  transform-origin: left top;
+  font-size: min(calc((100vw - 2 * var(--pad-x)) / 3.70), 25.7rem);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: .78;
+  letter-spacing: -.012em;
+  text-transform: uppercase;
+}
+
+.t-slam--pink { color: var(--pink); }
+
+/* Variante pour les titres dont un mot est plus long que
+   « n'existe pas. », sinon il se replierait. */
+.t-slam--s { font-size: min(calc((100vw - 2 * var(--pad-x)) / 4.02), 23.7rem); }
+
+.t-h2 {
+  margin: 0;
+  font-size: min(15vw, 15rem);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: .82;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+
+.t-lede {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.5vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.44;
+  letter-spacing: -.004em;
+  color: #f4f4f7;
+}
+
+.t-body {
+  margin: 0;
+  font-size: clamp(1rem, 1.75vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #c9c9d4;
+}
+
+.t-body strong { color: #fff; font-weight: 700; }
+
+.t-body a { color: var(--cyan); text-decoration-thickness: 2px; text-underline-offset: .18em; }
+
+.stack > * + * { margin-top: var(--sp-s); }
+
+/* ---------------------------------------------------------- structure */
+
+.p2 { position: relative; }
+
+.sec {
+  position: relative;
+  padding: 0 var(--pad-x);
+  overflow-x: clip;
+}
+
+.sec--hero {
+  padding-top: clamp(1rem, 3vw, 2.5rem);
+  padding-bottom: var(--sp-m);
+}
+
+/* Fondu entre la programmation annoncée et le titre de vérification.
+   La dernière carte se dissout dans le fond, puis ce bloc termine en
+   noir plein avant que le titre n'arrive. */
+.p2-fade {
+  position: relative;
+  z-index: 2;
+  /* la marge négative remonte le bloc sous les fiches : on la compense
+     pour que l'espace réellement vide sous les fiches fasse bien 300 px */
+  height: calc(var(--gap-bait) + 2.5rem);
+  margin-top: -2.5rem;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* Second silence, celui du bouton vers la vérification. */
+.p2-space {
+  height: var(--gap-bait);
+}
+
+/* ------------------------------------------------------------ l'appât */
+
+.baitsec {
+  display: flex;
+  justify-content: center;
+}
+
+.bait {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  padding: clamp(.95rem, 1.5vw, 1.25rem) 1.2rem;
+  border-radius: 3px;
+  background: var(--pink);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: clamp(1rem, 1.75vw, 1.45rem);
+  font-weight: 900;
+  font-stretch: 64%;
+  line-height: 1.05;
+  letter-spacing: .005em;
+  text-transform: uppercase;
+  transition: background-color .2s ease, transform .22s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+}
+
+.bait:hover,
+.bait:focus-visible {
+  background: var(--pink-bright);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 64px -20px rgba(235, 52, 106, .92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bait { transition: none; }
+}
+
+/* ------------------------------------------- projection SCAM, plein écran */
+
+.scam {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scam[hidden] { display: none; }
+
+.scam.is-playing { pointer-events: auto; }
+
+.scam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 4, 10, .74);
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+
+.scam.is-playing::before { opacity: 1; }
+
+.scam.is-leaving { opacity: 0; transition: opacity .8s ease; }
+
+.scam__word {
+  position: relative;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", "Arial Black", sans-serif;
+  font-size: min(34vw, 28rem);
+  font-weight: 900;
+  font-stretch: normal;
+  line-height: .84;
+  letter-spacing: -.015em;
+  text-transform: uppercase;
+  color: #fff;
+  -webkit-text-stroke: .016em #131320;
+  paint-order: stroke fill;
+  background-image: linear-gradient(180deg, #ffe27a 0%, #ff9a1f 46%, #eb1e5b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 .04em 0 rgba(0, 0, 0, .9)) drop-shadow(0 .11em .1em rgba(0, 0, 0, .65));
+  transform: translateY(-135vh) rotate(-10deg);
+}
+
+.scam.is-playing .scam__word {
+  animation: scamDrop 1.8s linear .04s forwards;
+}
+
+/* La chute prend un peu plus d'une seconde, puis deux rebonds et
+   l'immobilisation. Lent, lourd, un peu ridicule. */
+@keyframes scamDrop {
+  0% {
+    transform: translateY(-135vh) rotate(-13deg) scale(.9);
+    animation-timing-function: cubic-bezier(.5, .02, .92, .5);
+  }
+  58% {
+    transform: translateY(0) rotate(-7deg) scale(1.07);
+    animation-timing-function: cubic-bezier(.18, .82, .3, 1);
+  }
+  72% {
+    transform: translateY(-3.4vh) rotate(-7deg) scale(1.01);
+    animation-timing-function: cubic-bezier(.5, 0, .85, .4);
+  }
+  84% {
+    transform: translateY(0) rotate(-7deg) scale(1.025);
+    animation-timing-function: cubic-bezier(.18, .82, .3, 1);
+  }
+  93% {
+    transform: translateY(-1.1vh) rotate(-7deg) scale(1);
+  }
+  100% {
+    transform: translateY(0) rotate(-7deg) scale(1);
+  }
+}
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+.sec--calm { padding-top: var(--sp-m); padding-bottom: var(--sp-m); }
+.sec--gap  { padding-top: var(--sp-xl); padding-bottom: var(--sp-xl); }
+.sec--end  { padding-bottom: var(--sp-m); }
+
+/* --------------------------------------------------------------- hero */
+
+.hero2 .t-kicker { margin-bottom: clamp(1.4rem, 3.4vw, 3rem); }
+
+.hero2__title {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.4rem);
+  text-shadow: 0 0 clamp(30px, 6vw, 90px) rgba(0,0,0,.85);
+}
+
+.hero2__lede { max-width: 100%; }
+
+/* deux paragraphes qui se suivent respirent, .t-lede remet les marges à zéro */
+.t-lede + .t-lede { margin-top: clamp(1.1rem, 2.4vw, 2.2rem); }
+
+/* -------------------------------------------------------- fact check */
+
+.fact__head { margin-bottom: clamp(2.4rem, 7vw, 6rem); }
+
+.fact__item {
+  display: grid;
+  grid-template-columns: minmax(0, 7.5fr) minmax(0, 5.5fr);
+  gap: clamp(1rem, 3vw, 4rem);
+  align-items: start;
+  padding: clamp(1.6rem, 3.2vw, 2.8rem) 0;
+  border-top: 1px solid rgba(255,255,255,.14);
+}
+
+.fact__item:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
+
+.fact__claim {
+  margin: 0;
+  font-size: clamp(1.25rem, 3vw, 2.7rem);
+  font-weight: 800;
+  font-stretch: 68%;
+  line-height: 1.08;
+  letter-spacing: -.005em;
+  color: #fff;
+}
+
+.fact__verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+  margin-bottom: .7em;
+  font-size: clamp(.66rem, .92vw, .84rem);
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--pink);
+}
+
+.fact__verdict--ok { color: var(--cyan); }
+
+.fact__verdict::before {
+  content: "";
+  width: .62em;
+  height: .62em;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.fact__text { margin: 0; }
+
+/* ---------------------------------------------------------- mécanique */
+
+.steps { margin: clamp(2.6rem, 7vw, 6rem) 0 0; padding: 0; list-style: none; counter-reset: step; }
+
+.step {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  gap: clamp(1rem, 3vw, 4rem);
+  align-items: start;
+  padding: clamp(2rem, 4.4vw, 4rem) 0;
+  border-top: 1px solid rgba(255,255,255,.14);
+}
+
+.step:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
+
+.step__num {
+  font-size: clamp(3rem, 11vw, 9rem);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: .8;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,255,255,.3);
+}
+
+.step__title {
+  margin: 0 0 .6em;
+  font-size: clamp(1.4rem, 3.6vw, 3.2rem);
+  font-weight: 900;
+  font-stretch: 64%;
+  line-height: .98;
+  text-transform: uppercase;
+}
+
+.step .t-body + .t-body { margin-top: 1em; }
+
+/* ------------------------------------------------------------- ailleurs */
+
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(1rem, 3vw, 4rem);
+  padding: clamp(1.8rem, 3.6vw, 3.2rem) 0;
+  border-top: 1px solid rgba(255,255,255,.14);
+}
+
+.case:last-of-type { border-bottom: 1px solid rgba(255,255,255,.14); }
+
+.case__where {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.8rem);
+  font-weight: 800;
+  font-stretch: 66%;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.case__when {
+  display: block;
+  margin-top: .5em;
+  font-size: .62em;
+  font-weight: 600;
+  letter-spacing: .2em;
+  color: var(--pink);
+}
+
+/* --------------------------------------------------------------- journal */
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 3.4fr) minmax(0, 8.6fr);
+  gap: clamp(1rem, 3vw, 4rem);
+  padding: clamp(1.3rem, 2.6vw, 2.2rem) 0;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.entry:last-of-type { border-bottom: 1px solid rgba(255,255,255,.12); }
+
+.entry__time {
+  margin: 0;
+  font-size: clamp(.78rem, 1.3vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.entry__what { margin: 0; }
+
+/* -------------------------------------------------------------- rappel */
+
+.checks { margin: 0; padding: 0; list-style: none; counter-reset: chk; }
+
+.check {
+  position: relative;
+  padding: clamp(1.1rem, 2.4vw, 2rem) 0 clamp(1.1rem, 2.4vw, 2rem) clamp(3rem, 6vw, 6rem);
+  border-top: 1px solid rgba(255,255,255,.13);
+  font-size: clamp(1.05rem, 2.3vw, 2rem);
+  font-weight: 600;
+  font-stretch: 88%;
+  line-height: 1.3;
+}
+
+.check:last-child { border-bottom: 1px solid rgba(255,255,255,.13); }
+
+.check::before {
+  counter-increment: chk;
+  content: counter(chk, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: clamp(1.15rem, 2.4vw, 2.05rem);
+  font-size: .66em;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: var(--pink);
+}
+
+.check span { display: block; margin-top: .3em; font-size: .62em; font-weight: 500; color: #b9b9c6; letter-spacing: 0; }
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  margin-top: clamp(2.4rem, 5vw, 4rem);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .8em;
+  padding: clamp(.9rem, 1.6vw, 1.35rem) clamp(1.2rem, 2.4vw, 2.2rem);
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: 3px;
+  font-size: clamp(.82rem, 1.25vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.cta:hover { background: #fff; border-color: #fff; color: var(--ink); }
+
+.cta--pink { background: var(--pink); border-color: var(--pink); }
+.cta--pink:hover { background: var(--pink-bright); border-color: var(--pink-bright); color: #fff; }
+
+.cta::after { content: "→"; font-size: 1.1em; }
+
+/* ---------------------------------------------------------------- pied */
+
+.foot2 {
+  padding: var(--sp-m) var(--pad-x) clamp(2rem, 4vw, 3.4rem);
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.foot2__disclaimer {
+  margin: 0;
+  font-size: clamp(1rem, 2.1vw, 1.9rem);
+  font-weight: 700;
+  font-stretch: 72%;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.foot2__credit {
+  margin: clamp(1.4rem, 3vw, 2.4rem) 0 0;
+  font-size: clamp(.9rem, 1.5vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #b9b9c6;
+}
+
+.foot2__credit b { color: #fff; font-weight: 700; }
+
+.foot2__credit a {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid rgba(255, 255, 255, .35);
+  transition: border-color .2s ease, color .2s ease;
+}
+
+.foot2__credit a:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+/* -------------------------------------------------------------- reveals */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(clamp(24px, 3vw, 46px));
+  transition:
+    opacity .85s cubic-bezier(.22,.72,.24,1),
+    transform .85s cubic-bezier(.22,.72,.24,1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* --------------------------------------------------------------- écrans */
+
+@media (max-width: 1024px) {
+  .fact__item,
+  .case,
+  .entry,
+  .step { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .step__num { margin-bottom: .4rem; }
+  .fact__item { padding-block: clamp(1.4rem, 4vw, 2.2rem); }
+}
+
+@media (max-width: 720px) {
+  .t-slam { line-height: .82; }
+  .check { padding-left: 2.6rem; }
+}
+
+@media (max-width: 520px) {
+  .cta { width: 100%; justify-content: space-between; }
+}
