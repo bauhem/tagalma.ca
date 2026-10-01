@@ -99,7 +99,30 @@ Code couleur par journée : orange `#ef9729`, magenta `#eb346a`, bleu `#2e66d8`,
 3. **Liens des réseaux sociaux** : les quatre `href="#"` du pied de page de `index.html`.
 4. **Vérifier les deux liens officiels** de la section « Cinq vérifications ».
 
-## Déploiement Netlify
+## Déploiement
 
-Glisser-déposer le dossier `tagalma.ca` dans Netlify (Sites → Add new site → Deploy manually),
-puis pointer le domaine `tagalma.ca` vers le site. Aucune commande de build, aucun répertoire de publication particulier.
+En ligne :
+
+- **Netlify** : https://tagalma-ca.netlify.app
+  projet `tagalma-ca`, équipe Live-Bauhem, identifiant `441bb7c0-2581-41fe-a006-cfbccb3d0e86`
+- **Dépôt** : https://github.com/bauhem/tagalma.ca
+
+Aucune commande de build, le dossier entier est publié tel quel (`publish = "."` dans `netlify.toml`).
+La racine sert la page de prévention, `/annonce.html` la pièce à conviction, et `/index2.html` redirige en 301 vers `/`.
+
+Redéployer à la main :
+
+```bash
+cd ~/Sites/tagalma.ca
+netlify deploy --prod --dir=.
+```
+
+`netlify.toml` contient aussi les en-têtes de sécurité (CSP, X-Frame-Options, Referrer-Policy,
+Permissions-Policy), la mise en cache longue des `assets/` et le `noindex` de `/annonce.html`.
+
+### À faire dans l'interface Netlify
+
+1. **Relier le dépôt GitHub** pour le déploiement automatique :
+   Project configuration → Build & deploy → Link repository → `bauhem/tagalma.ca`, branche `main`,
+   commande de build vide, répertoire de publication `.`.
+2. **Connecter le domaine** `tagalma.ca` : Domain management → Add a domain.
