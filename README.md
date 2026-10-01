@@ -47,7 +47,7 @@ assets/
 3. **Le bouton « Achetez vos billets »**, 300 px de large, centré, 300 px de vide avant et après.
    Au clic : un « SCAM » géant tombe en plein écran, lentement, puis la page descend à la section suivante.
 4. **Vérification des faits**, titre géant « Le festival TAG Alma n’existe pas. », puis l’explication :
-   travail scolaire réalisé par des étudiants du Collège d’Alma, avec le lien vers leur communiqué, et la raison pour laquelle la page reste en ligne.
+   travail scolaire, avec le lien vers le communiqué des auteurs, et la raison pour laquelle la page reste en ligne.
 5. **Fact check**, onze éléments détaillés, dont le jugement sur l’affiche elle-même et sur les portraits utilisés.
 6. **Comment ça marche**, les quatre étapes du montage.
 7. **Ça arrive vraiment ailleurs**, cas documentés au Michigan et au Canada, avec les sources officielles.
